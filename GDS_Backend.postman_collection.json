@@ -1,0 +1,896 @@
+{
+	"info": {
+		"_postman_id": "0a1de0a1-a80b-41ea-92ef-662d730b1f9a",
+		"name": "GDS_Backend",
+		"description": "API para gerenciamento de Salas Ambulatoriais do HU (Sergipe)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19283290"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"João\",\r\n    \"phone\": \"12345678\",\r\n    \"password\": \"123456\",\r\n    \"email\": \"joao@email.com\",\r\n    \"cpf\": \"31664140026\",\r\n    \"birthDate\": \"1999-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/auth/register",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Set environment variable from response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    \r",
+									"    pm.environment.set(\"accessToken\", jsonData.accessToken);\r",
+									"\r",
+									"    console.log(\"Token salvo:\", pm.environment.get(\"accessToken\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cpf\": {{username}},\r\n    \"password\": {{password}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/auth/login",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room",
+			"item": [
+				{
+					"name": "List all Rooms",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/room",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"room"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "Ota",
+									"disabled": true
+								},
+								{
+									"key": "ocupada",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "unpaged",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all Rooms By Section ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/room/section/12",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"room",
+								"section",
+								"12"
+							],
+							"query": [
+								{
+									"key": "unpaged",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Room by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/room/10",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"room",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Room",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Teste\",\r\n    \"setorId\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/room",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"room"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Room",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Mudando a sala\",\r\n    \"setorId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/room/10",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"room",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Room",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/room/10",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"room",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Section",
+			"item": [
+				{
+					"name": "Get All Sections",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/section?unpaged=true",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"section"
+							],
+							"query": [
+								{
+									"key": "unpaged",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Section",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome setor\",\r\n    \"observacao\": \"Qualquer coisa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/section",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"section"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Section",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Nome setor\",\r\n    \"observacao\": \"Qualquer coisa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/section/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"section",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Section",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/section/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"section",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Requester",
+			"item": [
+				{
+					"name": "List all Requesters",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/requester?unpaged=true",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester"
+							],
+							"query": [
+								{
+									"key": "unpaged",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all Requesters by Type ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/requester/type/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester",
+								"type",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Requester by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/requester/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Requester",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Carlinhos\",\r\n    \"cpf\": \"26216473085\",\r\n    \"telefone\": \"12345678\",\r\n    \"especialidade\": \"Clínico geral\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/requester",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Requester",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Joãozinho\",\r\n    \"cpf\": \"66822603000\",\r\n    \"telefone\": \"123456722\",\r\n    \"especialidade\": \"Médico\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/requester/5",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Requester",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/requester/5",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reservation",
+			"item": [
+				{
+					"name": "List all Reservations By Date",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/reservation?inicio=2025-02-23T10:00:00&fim=2025-02-23T18:00:00",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"reservation"
+							],
+							"query": [
+								{
+									"key": "inicio",
+									"value": "2025-02-23T10:00:00"
+								},
+								{
+									"key": "fim",
+									"value": "2025-02-23T18:00:00"
+								},
+								{
+									"key": "solicitante",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "sala",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "setor",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all Reservations in current month",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/reservation/current-month?setor=Cirúrgia&setorId=2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"reservation",
+								"current-month"
+							],
+							"query": [
+								{
+									"key": "setor",
+									"value": "Cirúrgia"
+								},
+								{
+									"key": "setorId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Reservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"salaId\": 3,\r\n    \"solicitanteId\": 1,\r\n    \"horaInicio\": \"2025-06-01T08:00:00\",\r\n    \"horaFim\": \"2025-06-10T10:00:00\",\r\n    \"observacoes\": \"\",\r\n    \"fixo\": true,\r\n    \"dias\": [\r\n        1,\r\n        2,\r\n        3\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/reservation",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"reservation"
+							],
+							"query": [
+								{
+									"key": "nomeRequisitante",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "nomeSala",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Reservation",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/reservation/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"reservation",
+								"1"
+							],
+							"query": [
+								{
+									"key": "nomeRequisitante",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "nomeSala",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Recurrent Reservations",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/reservation/recurrent/2",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"reservation",
+								"recurrent",
+								"2"
+							],
+							"query": [
+								{
+									"key": "nomeRequisitante",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "nomeSala",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Hello World!",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/hello",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"hello"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/user",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authority Test",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/user/authority",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"authority"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No Authority Test",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/user/authority",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"authority"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
