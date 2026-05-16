@@ -797,8 +797,154 @@
 			]
 		},
 		{
+			"name": "Requester Absence",
+			"item": [
+				{
+					"name": "List Absences",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/requester-absence?solicitanteId=1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester-absence"
+							],
+							"query": [
+								{
+									"key": "solicitanteId",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Absence",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"solicitanteId\": 1,\r\n    \"dataInicio\": \"2026-01-10\",\r\n    \"dataFim\": \"2026-01-20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/requester-absence",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester-absence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Absence",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"solicitanteId\": 1,\r\n    \"dataInicio\": \"2026-01-10\",\r\n    \"dataFim\": \"2026-01-25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/requester-absence/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester-absence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Absence",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/requester-absence/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"requester-absence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Test",
 			"item": [
+				{
+					"name": "Health (warm-up)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/api/health",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Hello World!",
 					"request": {
