@@ -506,7 +506,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Carlinhos\",\r\n    \"cpf\": \"26216473085\",\r\n    \"telefone\": \"12345678\",\r\n    \"especialidade\": \"Clínico geral\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Carlinhos\",\r\n    \"telefone\": \"12345678\",\r\n    \"especialidade\": \"Clínico geral\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -539,7 +539,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Joãozinho\",\r\n    \"cpf\": \"66822603000\",\r\n    \"telefone\": \"123456722\",\r\n    \"especialidade\": \"Médico\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Joãozinho\",\r\n    \"telefone\": \"123456722\",\r\n    \"especialidade\": \"Médico\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
