@@ -436,6 +436,11 @@
 								{
 									"key": "unpaged",
 									"value": "true"
+								},
+								{
+									"key": "busca",
+									"value": "Cardiologia",
+									"description": "Busca por nome, especialidade ou telefone (parcial, case-insensitive)"
 								}
 							]
 						}
